@@ -1,4 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -8,9 +10,11 @@ import {
   faBell,
   faBars
 } from "@fortawesome/free-solid-svg-icons";
+import YouTube_Logo_2017 from "src/images/YouTube_Logo_2017.svg";
 
 const Header = ({ onSubmit }) => {
   const [value, setValue] = useState();
+  const navigate = useNavigate();
 
   const inputRef = useRef();
 
@@ -24,8 +28,16 @@ const Header = ({ onSubmit }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!value) return;
     onSubmit(value);
   }
+
+  // const reLoad = () => {
+  //   console.log("reload")
+  //   navigate("/");
+  //   setValue("");
+  //   inputRef.current.focus();
+  // }
 
   return (
     <HeaderContainer>
@@ -33,7 +45,7 @@ const Header = ({ onSubmit }) => {
         <FontAwesomeIcon icon={faBars} className="icon" />
           <img
             className="youtube-logo"
-            src="assets/YouTube_Logo_2017.svg"
+            src={YouTube_Logo_2017}
             alt="Youtube logo"
           />
       </LeftContainer>
@@ -42,6 +54,7 @@ const Header = ({ onSubmit }) => {
           <input
             ref={inputRef}
             onChange={handleChange}
+            // value={value}
             type="search"
             name="q"
             placeholder="Search"
@@ -81,12 +94,14 @@ const LeftContainer = styled.div`
   align-items: center;
 
   .youtube-logo {
+    cursor: pointer;
     height: 20px;
     object-fit: contain;
     margin-left: 30px;
   }
 
   .icon {
+    cursor: pointer;
     transform: scale(1.5, 1.2);
   }
 `
