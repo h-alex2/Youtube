@@ -1,4 +1,4 @@
-# Note (정리중)
+# Note (프로젝트 완료 후 정리 예정)
 
 ## webpack css loader 설정하기
 1. style-loader, css-loader 설치하기
