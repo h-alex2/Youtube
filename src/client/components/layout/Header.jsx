@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import axios from 'axios';
 import styled from "styled-components";
+import YouTube_Logo_2017 from "src/images/YouTube_Logo_2017.svg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faMagnifyingGlass,
@@ -10,12 +11,10 @@ import {
   faBell,
   faBars
 } from "@fortawesome/free-solid-svg-icons";
-import YouTube_Logo_2017 from "src/images/YouTube_Logo_2017.svg";
 
-const Header = ({ onSubmit }) => {
+const Header = () => {
   const [value, setValue] = useState();
   const navigate = useNavigate();
-
   const inputRef = useRef();
 
   useEffect(() => {
@@ -26,24 +25,38 @@ const Header = ({ onSubmit }) => {
     setValue(e.target.value);
   }
 
+  // const onSearch = async (termFromSearchBar) => {
+  //   const response = await axios('/api/search', {
+  //     params: {
+  //       search_query: termFromSearchBar
+  //     },
+  //   })
+  //   setVideos(response.data)
+  //   console.log(response);
+  // }
+
+  const onSearch = async (value) => {
+    const response = await axios('/api/search')
+    setVideos(response.data);
+    navigate("/result");
+  }
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!value) return;
-    onSubmit(value);
+    onSearch(value);
   }
 
-  // const reLoad = () => {
-  //   console.log("reload")
-  //   navigate("/");
-  //   setValue("");
-  //   inputRef.current.focus();
-  // }
+  const refresh = () => {
+    navigate("/");
+  }
 
   return (
     <HeaderContainer>
       <LeftContainer>
-        <FontAwesomeIcon icon={faBars} className="icon" />
+        <FontAwesomeIcon onClick={refresh} icon={faBars} className="icon" />
           <img
+            onClick={refresh}
             className="youtube-logo"
             src={YouTube_Logo_2017}
             alt="Youtube logo"

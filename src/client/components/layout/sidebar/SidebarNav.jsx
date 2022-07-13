@@ -7,7 +7,7 @@ import {
   faPaperPlane,
   faClapperboard,
   faPlay,
-} from "@fortawesome/free-solid-svg-icons"
+} from "@fortawesome/free-solid-svg-icons";
 import { faYoutube, } from "@fortawesome/free-brands-svg-icons";
 
 const SidebarNav = () => {
@@ -24,7 +24,11 @@ const SidebarNav = () => {
 };
 
 const NavContainer = styled.div`
-
+  flex: 0.2;
+  position: sticky;
+  top : 56px;
+  left : 0;
+  height : 0;
 `
 
 export default SidebarNav;

@@ -5,7 +5,7 @@ import {
   faPaperPlane,
 } from "@fortawesome/free-solid-svg-icons";
 
-function SidebarClickNav() {
+const SidebarClickNav = () => {
   return (
     <Container>
       <SideClickRow Icon={faPaperPlane} title={"홈"} />

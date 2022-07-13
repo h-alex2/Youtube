@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react'
-import styled, { css } from 'styled-components'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useState, useEffect, useRef } from 'react';
+import styled, { css } from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function SidebarRow({ Icon, title }) {
+const SidebarClickRow = ({ Icon, title }) => {
   const [clicked, setClicked] = useState(undefined);
   const timerId = useRef(null);
 
@@ -18,24 +18,20 @@ function SidebarRow({ Icon, title }) {
   }, [timerId]);
 
   return (
-    <Containter>
-      <RowContainer onClick={onClick} clicked={clicked}>
-        <FontAwesomeIcon icon={Icon} className="icon"/>
-        <p className="title">{title}</p>
-      </RowContainer>
-    </Containter>
+    <RowContainer onClick={onClick} clicked={clicked}>
+      <FontAwesomeIcon icon={Icon} className="icon" />
+      <p className="title">{title}</p>
+    </RowContainer>
   );
 }
 
-const Containter = styled.div`
-    flex: 0.05;
-    min-width: 70px;`
-
 const RowContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  width: 200px;
+  flex-direction: row;
   align-items: center;
-  padding: 19px 0;
+  padding: 10px 20px;
+  border: 1px solid black;
 
   :hover {
     cursor: pointer;
@@ -46,15 +42,17 @@ const RowContainer = styled.div`
   .title {
     margin: 0;
     font-family: Roboto, Arial, sans-serif;
-    font-size: 10px;
+    font-size: 14px;
     font-weight: 400;
+    padding: 0 20px;
   };
 
   .icon {
     margin-bottom: 6px;
-    transform: scale(1.2);
+    width: 24px;
+    margin: 0;
   };
 `
 
 
-export default SidebarRow;
+export default SidebarClickRow;
