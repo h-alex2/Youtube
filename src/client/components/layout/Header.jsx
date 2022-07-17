@@ -36,9 +36,17 @@ const Header = () => {
   // }
 
   const onSearch = async (value) => {
-    const response = await axios('/api/search')
-    setVideos(response.data);
-    navigate("/result");
+    const response = await axios('/api/result', {
+      params: {
+        search_query: value //query 전달
+      }
+    })
+
+    navigate(`/result?search_query=${value}`, {
+      state: {
+        apiData: response.data
+      }
+    });
   }
 
   const handleSubmit = (e) => {
@@ -67,7 +75,6 @@ const Header = () => {
           <input
             ref={inputRef}
             onChange={handleChange}
-            // value={value}
             type="search"
             name="q"
             placeholder="Search"
