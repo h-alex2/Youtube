@@ -17,13 +17,11 @@
 
 ## 스니펫 플러그인 단축키
 - VS Code ES7+ React/Redux/React-Native/JS snippets
-- rfce
-
+- rfce : function
+- rafce : arrow function
 ## Material UI 사용..
 
 [Installation (공식문서)](https://mui.com/material-ui/getting-started/installation/)
-
-## import * as React from 'react'
 
 ## import * as React from 'react'
 - Cannot read properties of null (reading 'useContext') 이 에러가 자꾸 난다..
@@ -87,6 +85,14 @@ const Row = styled.div`
 <img src="./assets/readme_assets/220705-01.png" />
 
 - 상단에 바로 뜨는 걸 모달이라고 하는구나
+
+### position: fixed
+- top, bottom 값이 필요하다.
+- 뷰포트를 기준으로 삼는다.
+
+### position: sticky
+- 부모요소에 overflow : hidden 설정되어있으면 sticky 안먹힌다.
+- 스크롤박스를 기준으로 삼는다.
 
 ## Loaders for Webpack
 - babel-loader: Babel용 로더
@@ -262,3 +268,34 @@ new webpack.DefinePlugin({
 
 ## __dirname 
 - 현재 경로
+
+## react router
+### useNavigate, useLocation
+- 클릭 또는 submit시에 라우터가 변경되고 props를 전달하려면 useNavigate로 전달하고 useLocation으로 props를 받을 수 있다.
+
+## 쿼리 스트링 query string
+- https://example.com/path/to/page?name=ferret&color=purple
+  - & (앰퍼샌드)로 구분된다.
+  - name = ferret, color = purple
+
+- 물음표는 구분 기호로 사용되며 쿼리 스트링의 일부가 아니다. 쿼리 스트링이 시작함을 알린다.
+- 정확한 구조는 표준화되어 있지 않다.
+- 일련의 field=value로 구성된다.
+- 주소에 데이터를 전달하는 가장 쉬운 방법이다.
+- 서버도 전달되었다는 걸 인식한다.
+- 카테고리 내에서 페이지가 이동할 때 예를들어 "코딩"이라는 카테고리 안에서 페이지가 1에서 2로 넘어갈 때 coding?page=2 로 설정할 수 있다.
+
+## axios params
+
+## API
+1. Endpoint
+  - 서비스를 이용하기 위한 요청이 향하는 URI
+  - 요청을 받아 응답을 제공하는 서비스를 이용할 수 있는 지점을 의미한다.
+  - [API 와 Endpoint ? (둘 다 정확히 알고 있다면 안봐도 되는 글)](https://blog.naver.com/PostView.naver?blogId=ghdalswl77&logNo=222401162545&parentCategoryNo=&categoryNo=90&viewDate=&isShowPopularPosts=true&from=search)
+  - 시작점
+2. Paths
+3. Parameters
+4. Authentication
+
+## import한 컴포넌트에 class 적용하기
+prop으로 class를 전달해줘야한다.
