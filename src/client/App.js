@@ -1,15 +1,16 @@
 import React from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-// import Layout from "src/Layout";
-import Layout from "components/Layout";
+import Home from "./pages/Home";
+import Result from "./pages/Result";
+import Watch from "./pages/Watch";
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="" element={<Layout />} />
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/result" element={<Result />} />
+      <Route path="/watch" element={<Watch />} />
+    </Routes>
   )
 }
 
