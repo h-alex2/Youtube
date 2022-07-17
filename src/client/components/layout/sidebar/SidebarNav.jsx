@@ -1,4 +1,5 @@
 import * as React from 'react'
+import { useNavigate } from 'react-router';
 import styled from "styled-components";
 import SidebarRow from "./SidebarRow";
 import {
@@ -11,9 +12,16 @@ import {
 import { faYoutube, } from "@fortawesome/free-brands-svg-icons";
 
 const SidebarNav = () => {
+  const navigate = useNavigate();
+
+  const onClick = () => {
+    console.log("click");
+    navigate("/");
+  }
+
   return (
     <NavContainer>
-      <SidebarRow Icon={faHouse} title={"홈"} />
+      <SidebarRow Icon={faHouse} title={"홈"} onClick={onClick} />
       <SidebarRow Icon={faCompass} title={"탐색"} />
       <SidebarRow Icon={faPaperPlane} title={"구독"} />
       <SidebarRow Icon={faYoutube} title={"Originals"} />
