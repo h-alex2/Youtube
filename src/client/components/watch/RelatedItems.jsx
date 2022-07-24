@@ -5,6 +5,16 @@ import styled from 'styled-components';
 
 
 const RelatedItems = () => {
+  const [videos, setVideos] = useState([]);
+
+  useEffect( () => {
+    const check = async () => {
+      const response = await axios('/api/videos');
+      setVideos(response.data);
+    };
+    check();
+  }, [])
+
   return (
     <ItemContainer>
       {videos.map(video => (
