@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import YouTube_Logo_2017 from "src/images/YouTube_Logo_2017.svg";
+import Avatar from '@mui/material/Avatar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faMagnifyingGlass,
@@ -12,7 +13,7 @@ import {
   faBars
 } from "@fortawesome/free-solid-svg-icons";
 
-const Header = () => {
+const Header = ({ modalClickHandler, isModal }) => {
   const [value, setValue] = useState();
   const navigate = useNavigate();
   const inputRef = useRef();
@@ -25,23 +26,12 @@ const Header = () => {
     setValue(e.target.value);
   }
 
-  // const onSearch = async (termFromSearchBar) => {
-  //   const response = await axios('/api/search', {
-  //     params: {
-  //       search_query: termFromSearchBar
-  //     },
-  //   })
-  //   setVideos(response.data)
-  //   console.log(response);
-  // }
-
   const onSearch = async (value) => {
     const response = await axios('/api/result', {
       params: {
         search_query: value //query 전달
       }
     })
-
     navigate(`/result?search_query=${value}`, {
       state: {
         apiData: response.data
@@ -60,51 +50,60 @@ const Header = () => {
   }
 
   return (
-    <HeaderContainer>
-      <LeftContainer>
-        <FontAwesomeIcon onClick={refresh} icon={faBars} className="icon" />
-          <img
-            onClick={refresh}
-            className="youtube-logo"
-            src={YouTube_Logo_2017}
-            alt="Youtube logo"
-          />
-      </LeftContainer>
-      <SearchContainer>
-        <form onSubmit={handleSubmit}>
-          <input
-            ref={inputRef}
-            onChange={handleChange}
-            type="search"
-            name="q"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button type="submit">
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </button>
-        </form>
-      </SearchContainer>
-      <MenuIcon>
-        <FontAwesomeIcon icon={faVideo} className="icons" />
-        {/* <FontAwesomeIcon icon={faGrid} className="icons" /> */}
-        <FontAwesomeIcon icon={faBell} className="icons" />
-        <FontAwesomeIcon icon={faUser} className="avatar" />
-      </MenuIcon>
+    <HeaderContainer isModal={isModal} >
+      <ContainerWrapper>
+        <LeftContainer>
+          <FontAwesomeIcon onClick={modalClickHandler} icon={faBars} className="icon" />
+            <img
+              onClick={refresh}
+              className="youtube-logo"
+              src={YouTube_Logo_2017}
+              alt="Youtube logo"
+            />
+        </LeftContainer>
+        <SearchContainer>
+          <form onSubmit={handleSubmit}>
+            <input
+              ref={inputRef}
+              onChange={handleChange}
+              type="search"
+              name="q"
+              placeholder="Search"
+              aria-label="Search"
+            />
+            <button type="submit">
+              <FontAwesomeIcon icon={faMagnifyingGlass} />
+            </button>
+          </form>
+        </SearchContainer>
+        <MenuIcon>
+          <FontAwesomeIcon icon={faVideo} className="icons" />
+          <FontAwesomeIcon icon={faBell} className="icons" />
+          <Avatar
+                className="avatar"
+                alt="junghyun-profile"
+              />
+        </MenuIcon>
+      </ContainerWrapper>
     </HeaderContainer>
   )
 };
 
 const HeaderContainer = styled.div`
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  overflow-x: hidden;
+
+`
+
+const ContainerWrapper = styled.div`
   height: 56px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   padding: 0 1.8rem;
-  position: sticky;
-  top: 0;
-  z-index: 100;
   background-color: white;
 `
 
@@ -149,6 +148,12 @@ const SearchContainer = styled.div`
     border-bottom-right-radius: 0;
   };
 
+  input:focus {
+    outline: none;
+    box-shadow: inset 0 1px 2px rgb(0 0 0 / 30%);
+    border: solid 1px #002858;
+  }
+
   button {
     display: flex;
     align-items: center;
@@ -176,7 +181,7 @@ const MenuIcon = styled.div`
   };
 
   .avatar {
-    transform: scale(1.2);
+    transform: scale(0.8);
     margin-right: 20px;
     margin-left: 5px;
   };
