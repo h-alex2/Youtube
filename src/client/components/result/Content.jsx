@@ -1,13 +1,40 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
 
 const Content = ({ video }) => {
-  console.log({video: video})
+  const [channelThumbnail, setChannelThumbnail] = useState("");
+  const navigate = useNavigate();
+
+  const loadChannelThumbnail = () => {
+    axios.get('api/channel', {
+      params: {
+        channelId: video.channelId,
+      }
+    })
+    .then((res) => setChannelThumbnail(res.data));
+  };
+
+  useEffect(() => {
+    loadChannelThumbnail();
+  }, []);
+
+  const onClick = () => {
+    console.log("video",video);
+    console.log("video");
+    navigate(`/watch?v=${video.id}`, {
+      state: {
+        video: video,
+      }
+    });
+  };
+
   return (
-    <Container>
+    <Container onClick={onClick}>
       <a>
-        <Thumbnail src={video.thumbnails.high.url} alt="" />
+        <Thumbnail src={video.thumbnail} alt="" />
       </a>
       <Meta className="content__Info">
           <p className="title">{video.title}</p>
@@ -16,7 +43,7 @@ const Content = ({ video }) => {
             <Avatar
               className="profile"
               alt="junghyun-profile"
-              src="https://avatars.githubusercontent.com/u/84281505?v=4"
+              src={channelThumbnail}
             />
             <p>{video.channelTitle}</p>
           </div>
@@ -29,6 +56,7 @@ const Content = ({ video }) => {
 const Container = styled.div`
   display: flex;
   margin: 10px;
+  cursor: pointer;
 `
 
 const Thumbnail = styled.img`
