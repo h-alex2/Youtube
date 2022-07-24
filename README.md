@@ -101,6 +101,14 @@ const Row = styled.div`
 - css-loader: CSS용 로더
 - sass-loader(*): SASS/SCSS용 로더
 
+## CSS 비율 조절하기 aspect-ratio
+  - `aspect-ratio: 16 / 9; /* 16:9 비율 지정 */`
+
+## CSS 미디어 쿼리 디바이스별 해상도 분기점
+- `<meta name="viewport" content="width=device-width, initial-scale=1">`
+- width=device-width: 화면의 넓이를 디바이스의 넓이로 지정
+- initial-scale=1: 초기 화면 배율
+
 ## webpack에서 svg 설정하기 : asset modules
 - webpack 5 이전에는 로더를 사용해서 구현했으나 로더를 대체하기 위해서 4가지 모듈이 나왔다고 한다.
 
