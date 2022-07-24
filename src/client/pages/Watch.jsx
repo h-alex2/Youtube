@@ -3,15 +3,18 @@ import Header from 'components/layout/Header';
 import PlayerWrapper from 'components/watch/PlayerWrapper';
 import RelatedItems from 'components/watch/RelatedItems';
 import styled from 'styled-components';
+import { useLocation } from 'react-router';
 
-const Watch = ({ player, items }) => {
+const Watch = () => {
+  const location = useLocation();
+  const { video } = location.state;
+
   return (
     <>
       <Header />
       <ContentContainer>
-        <PlayerWrapper  className={player} />
-        <RelatedItems className={items} />
-        <div className="hi">hi</div>
+        <PlayerWrapper video={video}/>
+        <RelatedItems />
       </ContentContainer>
     </>
   )
@@ -19,15 +22,9 @@ const Watch = ({ player, items }) => {
 
 const ContentContainer = styled.div`
   display: flex;
-  flex-direction: row;
   justify-content: center;
+  background-color: #f9f9f9;
 
-  .player {
-    color: red;
-  }
-  .items {
-    color: yellow;
-  }
 `
 
 
