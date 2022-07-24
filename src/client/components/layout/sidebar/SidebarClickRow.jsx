@@ -6,19 +6,8 @@ const SidebarClickRow = ({ Icon, title }) => {
   const [clicked, setClicked] = useState(undefined);
   const timerId = useRef(null);
 
-  const onClick = () => {
-    setClicked("clicked");
-    timerId.current = setTimeout(() => {
-      setClicked(null);
-    }, 100)
-  }
-
-  useEffect(() => {
-    return clearTimeout(timerId.current);
-  }, [timerId]);
-
   return (
-    <RowContainer onClick={onClick} clicked={clicked}>
+    <RowContainer clicked={clicked}>
       <FontAwesomeIcon icon={Icon} className="icon" />
       <p className="title">{title}</p>
     </RowContainer>
@@ -30,8 +19,10 @@ const RowContainer = styled.div`
   width: 200px;
   flex-direction: row;
   align-items: center;
-  padding: 10px 20px;
-  border: 1px solid black;
+  height: 43px;
+  padding: 0px 24px;
+  background-color: white;
+  z-index: 100;
 
   :hover {
     cursor: pointer;
