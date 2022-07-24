@@ -1,30 +1,44 @@
 import * as React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Avatar from '@mui/material/Avatar';
 import styled from 'styled-components';
+import { useNavigate } from "react-router-dom";
 
 const Content = ({ video }) => {
+  const [channelThumbnail, setChannelThumbnail] = useState("")
+  const navigate = useNavigate();
+
+  const loadChannelThumbnail = () => {
+    axios.get('api/channel', {
+      params: {
+        channelId: video.channelId,
+      }
+    })
+    .then((res) => setChannelThumbnail(res.data));
+  };
+
   useEffect(() => {
-    console.log("hihihi")
-    const check = async () => {
-      const response = await axios('api/channels', {
-        params: {
-          channelId: video.channelId,
-        }
-      });
-    };
-    check();
+    loadChannelThumbnail();
   }, []);
 
+  const onClick = () => {
+    console.log(video.id);
+    navigate(`/watch?v=${video.id}`, {
+      state: {
+        video: video,
+      }
+    });
+  };
+
   return (
-    <Container>
-      <Thumbnail src={video.thumbnails.high.url} alt="" />
+    <Container onClick={onClick}>
+      <Thumbnail src={video.thumbnail} alt="" className='thumbnail'/>
       <Meta className="content__Info">
           <Avatar
             className="profile"
             alt="junghyun-profile"
-            src="https://avatars.githubusercontent.com/u/84281505?v=4"
+            src={channelThumbnail}
           />
         <div className="content__all__meta">
           <p className="title">{video.title}</p>
@@ -39,18 +53,19 @@ const Content = ({ video }) => {
 }
 
 const Container = styled.div`
-  flex: 1 1;
-  margin-bottom: 40px;
+  width: auto;
+  /* margin: 0 8px 40px 8px; */
+  cursor: pointer;
 `
 
 const Thumbnail = styled.img`
-  width: 280px;
-  height: 155px;
+  width: 100%;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
 `
 
 const Meta = styled.div`
-  width: 280px;
+  max-width: 100%;
   display: flex;
   flex-direction: row;
 
