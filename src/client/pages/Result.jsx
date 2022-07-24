@@ -23,6 +23,7 @@ const Result = () => {
 const ContentContainer = styled.div`
   display: flex;
   flex-direction: row;
+  background-color: #f9f9f9;
 `
 
 export default Result;
