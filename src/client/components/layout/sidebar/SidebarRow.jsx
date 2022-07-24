@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, withTheme } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const SidebarRow = ({ Icon, title }) => {
@@ -18,18 +18,19 @@ const SidebarRow = ({ Icon, title }) => {
   }, [timerId]);
 
   return (
-    <Containter>
+    <Container>
       <RowContainer onClick={onClick} clicked={clicked}>
         <FontAwesomeIcon icon={Icon} className="icon"/>
         <p className="title">{title}</p>
       </RowContainer>
-    </Containter>
+    </Container>
   );
 }
 
-const Containter = styled.div`
+const Container = styled.div`
     flex: 0.05;
-    min-width: 70px;`
+    min-width: 70px;
+`
 
 const RowContainer = styled.div`
   display: flex;
